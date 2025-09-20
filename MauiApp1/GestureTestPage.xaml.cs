@@ -25,22 +25,37 @@ public partial class GestureTestPage : ContentPage
 
     private void OnPan(object sender, GestureEventArgs e)
     {
-        AddLog($"Pan: X={e.X:F1}, Y={e.Y:F1}, ΔX={e.DeltaX:F1}, ΔY={e.DeltaY:F1}");
+        var fingerText = e.FingerCount == 1 ? "1 finger" : $"{e.FingerCount} fingers";
+        AddLog($"Pan ({fingerText}): X={e.X:F1}, Y={e.Y:F1}, ΔX={e.DeltaX:F1}, ΔY={e.DeltaY:F1}");
     }
 
     private void OnTap(object sender, GestureEventArgs e)
     {
-        AddLog($"Tap: X={e.X:F1}, Y={e.Y:F1}");
+        var fingerText = e.FingerCount == 1 ? "1 finger" : $"{e.FingerCount} fingers";
+        AddLog($"Tap ({fingerText}): X={e.X:F1}, Y={e.Y:F1}");
+    }
+
+    private void OnDoubleTap(object sender, GestureEventArgs e)
+    {
+        var fingerText = e.FingerCount == 1 ? "1 finger" : $"{e.FingerCount} fingers";
+        AddLog($"DoubleTap ({fingerText}): X={e.X:F1}, Y={e.Y:F1}");
+    }
+
+    private void OnTwoFingerTap(object sender, GestureEventArgs e)
+    {
+        AddLog($"TwoFingerTap: X={e.X:F1}, Y={e.Y:F1}, Fingers={e.FingerCount}");
     }
 
     private void OnLongPress(object sender, GestureEventArgs e)
     {
-        AddLog($"LongPress: X={e.X:F1}, Y={e.Y:F1}");
+        var fingerText = e.FingerCount == 1 ? "1 finger" : $"{e.FingerCount} fingers";
+        AddLog($"LongPress ({fingerText}): X={e.X:F1}, Y={e.Y:F1}");
     }
 
     private void OnFling(object sender, GestureEventArgs e)
     {
-        AddLog($"Fling: VX={e.VelocityX:F0}, VY={e.VelocityY:F0}");
+        var fingerText = e.FingerCount == 1 ? "1 finger" : $"{e.FingerCount} fingers";
+        AddLog($"Fling ({fingerText}): VX={e.VelocityX:F0}, VY={e.VelocityY:F0}");
     }
 
     private void OnScaleBegin(object sender, ScaleEventArgs e)

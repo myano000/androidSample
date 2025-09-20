@@ -17,6 +17,12 @@ namespace MauiApp1
         public static readonly BindableProperty TapCommandProperty =
             BindableProperty.Create(nameof(TapCommand), typeof(ICommand), typeof(GestureView));
 
+        public static readonly BindableProperty DoubleTapCommandProperty =
+            BindableProperty.Create(nameof(DoubleTapCommand), typeof(ICommand), typeof(GestureView));
+
+        public static readonly BindableProperty TwoFingerTapCommandProperty =
+            BindableProperty.Create(nameof(TwoFingerTapCommand), typeof(ICommand), typeof(GestureView));
+
         public static readonly BindableProperty LongPressCommandProperty =
             BindableProperty.Create(nameof(LongPressCommand), typeof(ICommand), typeof(GestureView));
 
@@ -51,6 +57,18 @@ namespace MauiApp1
             set => SetValue(TapCommandProperty, value);
         }
 
+        public ICommand? DoubleTapCommand
+        {
+            get => (ICommand?)GetValue(DoubleTapCommandProperty);
+            set => SetValue(DoubleTapCommandProperty, value);
+        }
+
+        public ICommand? TwoFingerTapCommand
+        {
+            get => (ICommand?)GetValue(TwoFingerTapCommandProperty);
+            set => SetValue(TwoFingerTapCommandProperty, value);
+        }
+
         public ICommand? LongPressCommand
         {
             get => (ICommand?)GetValue(LongPressCommandProperty);
@@ -72,6 +90,8 @@ namespace MauiApp1
         // Events
         public event EventHandler<GestureEventArgs>? Pan;
         public event EventHandler<GestureEventArgs>? Tap;
+        public event EventHandler<GestureEventArgs>? DoubleTap;
+        public event EventHandler<GestureEventArgs>? TwoFingerTap;
         public event EventHandler<GestureEventArgs>? LongPress;
         public event EventHandler<GestureEventArgs>? Fling;
         public event EventHandler<ScaleEventArgs>? ScaleBegin;
@@ -91,6 +111,20 @@ namespace MauiApp1
             Tap?.Invoke(this, args);
             if (TapCommand?.CanExecute(args) == true)
                 TapCommand.Execute(args);
+        }
+
+        public virtual void OnDoubleTap(GestureEventArgs args)
+        {
+            DoubleTap?.Invoke(this, args);
+            if (DoubleTapCommand?.CanExecute(args) == true)
+                DoubleTapCommand.Execute(args);
+        }
+
+        public virtual void OnTwoFingerTap(GestureEventArgs args)
+        {
+            TwoFingerTap?.Invoke(this, args);
+            if (TwoFingerTapCommand?.CanExecute(args) == true)
+                TwoFingerTapCommand.Execute(args);
         }
 
         public virtual void OnLongPress(GestureEventArgs args)

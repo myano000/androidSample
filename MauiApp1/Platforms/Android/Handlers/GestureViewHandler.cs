@@ -45,11 +45,12 @@ namespace MauiApp1.Platforms.Android.Handlers
         }
     }
 
-    public class GestureNativeView : AView, GestureDetector.IOnGestureListener, ScaleGestureDetector.IOnScaleGestureListener
+    public class GestureNativeView : AView, GestureDetector.IOnGestureListener, GestureDetector.IOnDoubleTapListener, ScaleGestureDetector.IOnScaleGestureListener
     {
         private readonly IGestureView _gestureView;
         private GestureDetector? _gestureDetector;
         private ScaleGestureDetector? _scaleGestureDetector;
+        private DateTime _lastTwoFingerTapTime = DateTime.MinValue;
 
         public GestureNativeView(Context context, IGestureView gestureView) : base(context)
         {
@@ -60,6 +61,7 @@ namespace MauiApp1.Platforms.Android.Handlers
         public void Connect()
         {
             _gestureDetector = new GestureDetector(Context, this);
+            _gestureDetector.SetOnDoubleTapListener(this);
             _scaleGestureDetector = new ScaleGestureDetector(Context, this);
         }
 
@@ -77,9 +79,42 @@ namespace MauiApp1.Platforms.Android.Handlers
 
             bool handled = false;
 
+            // Check for two-finger tap
+            if (e.Action == MotionEventActions.Down && e.PointerCount == 2)
+            {
+                var now = DateTime.Now;
+                var timeDiff = now - _lastTwoFingerTapTime;
+
+                if (timeDiff.TotalMilliseconds < 300) // Double two-finger tap within 300ms
+                {
+                    var args = new GestureEventArgs
+                    {
+                        X = e.GetX(),
+                        Y = e.GetY(),
+                        FingerCount = 2,
+                        Type = GestureType.TwoFingerTap
+                    };
+                    MainThread.BeginInvokeOnMainThread(() => _gestureView.OnTwoFingerTap(args));
+                    handled = true;
+                }
+                _lastTwoFingerTapTime = now;
+            }
+            else if (e.Action == MotionEventActions.Up && e.PointerCount == 2)
+            {
+                var args = new GestureEventArgs
+                {
+                    X = e.GetX(),
+                    Y = e.GetY(),
+                    FingerCount = 2,
+                    Type = GestureType.TwoFingerTap
+                };
+                MainThread.BeginInvokeOnMainThread(() => _gestureView.OnTwoFingerTap(args));
+                handled = true;
+            }
+
             if (_gestureView.IsScaleEnabled && _scaleGestureDetector != null)
             {
-                handled = _scaleGestureDetector.OnTouchEvent(e);
+                handled = _scaleGestureDetector.OnTouchEvent(e) || handled;
             }
 
             if (_gestureView.IsGestureEnabled && _gestureDetector != null)
@@ -118,6 +153,7 @@ namespace MauiApp1.Platforms.Android.Handlers
                 DeltaY = e2.GetY() - e1.GetY(),
                 VelocityX = velocityX,
                 VelocityY = velocityY,
+                FingerCount = e2.PointerCount,
                 Type = GestureType.Fling
             };
 
@@ -133,6 +169,7 @@ namespace MauiApp1.Platforms.Android.Handlers
             {
                 X = e.GetX(),
                 Y = e.GetY(),
+                FingerCount = e.PointerCount,
                 Type = GestureType.LongPress
             };
 
@@ -149,6 +186,7 @@ namespace MauiApp1.Platforms.Android.Handlers
                 Y = e2.GetY(),
                 DeltaX = -distanceX,
                 DeltaY = -distanceY,
+                FingerCount = e2.PointerCount,
                 Type = GestureType.Pan
             };
 
@@ -169,6 +207,7 @@ namespace MauiApp1.Platforms.Android.Handlers
             {
                 X = e.GetX(),
                 Y = e.GetY(),
+                FingerCount = e.PointerCount,
                 Type = GestureType.Tap
             };
 
@@ -222,6 +261,36 @@ namespace MauiApp1.Platforms.Android.Handlers
             };
 
             MainThread.BeginInvokeOnMainThread(() => _gestureView.OnScaleEnd(args));
+        }
+
+        // GestureDetector.IOnDoubleTapListener implementation
+        public bool OnDoubleTap(MotionEvent e)
+        {
+            if (e == null) return false;
+
+            var args = new GestureEventArgs
+            {
+                X = e.GetX(),
+                Y = e.GetY(),
+                FingerCount = e.PointerCount,
+                Type = GestureType.DoubleTap
+            };
+
+            MainThread.BeginInvokeOnMainThread(() => _gestureView.OnDoubleTap(args));
+            return true;
+        }
+
+        public bool OnDoubleTapEvent(MotionEvent e)
+        {
+            // Return false to allow other gesture detection to continue
+            return false;
+        }
+
+        public bool OnSingleTapConfirmed(MotionEvent e)
+        {
+            // This is called for single taps that are confirmed not to be double taps
+            // We handle single taps in OnSingleTapUp, so return false here
+            return false;
         }
     }
 }

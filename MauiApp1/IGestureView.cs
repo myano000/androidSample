@@ -7,6 +7,8 @@ namespace MauiApp1
         // Gesture events
         event EventHandler<GestureEventArgs>? Pan;
         event EventHandler<GestureEventArgs>? Tap;
+        event EventHandler<GestureEventArgs>? DoubleTap;
+        event EventHandler<GestureEventArgs>? TwoFingerTap;
         event EventHandler<GestureEventArgs>? LongPress;
         event EventHandler<GestureEventArgs>? Fling;
 
@@ -18,6 +20,8 @@ namespace MauiApp1
         // Commands
         ICommand? PanCommand { get; set; }
         ICommand? TapCommand { get; set; }
+        ICommand? DoubleTapCommand { get; set; }
+        ICommand? TwoFingerTapCommand { get; set; }
         ICommand? LongPressCommand { get; set; }
         ICommand? FlingCommand { get; set; }
         ICommand? ScaleCommand { get; set; }
@@ -29,6 +33,8 @@ namespace MauiApp1
         // Method definitions for handlers to call
         void OnPan(GestureEventArgs args);
         void OnTap(GestureEventArgs args);
+        void OnDoubleTap(GestureEventArgs args);
+        void OnTwoFingerTap(GestureEventArgs args);
         void OnLongPress(GestureEventArgs args);
         void OnFling(GestureEventArgs args);
         void OnScaleBegin(ScaleEventArgs args);
@@ -44,6 +50,7 @@ namespace MauiApp1
         public float DeltaY { get; set; }
         public float VelocityX { get; set; }
         public float VelocityY { get; set; }
+        public int FingerCount { get; set; } = 1;
         public GestureType Type { get; set; }
     }
 
@@ -59,6 +66,8 @@ namespace MauiApp1
     {
         Pan,
         Tap,
+        DoubleTap,
+        TwoFingerTap,
         LongPress,
         Fling
     }
