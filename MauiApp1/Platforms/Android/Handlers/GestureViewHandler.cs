@@ -201,18 +201,9 @@ namespace MauiApp1.Platforms.Android.Handlers
 
         public bool OnSingleTapUp(MotionEvent e)
         {
-            if (e == null) return false;
-
-            var args = new GestureEventArgs
-            {
-                X = e.GetX(),
-                Y = e.GetY(),
-                FingerCount = e.PointerCount,
-                Type = GestureType.Tap
-            };
-
-            MainThread.BeginInvokeOnMainThread(() => _gestureView.OnTap(args));
-            return true;
+            // Don't fire Tap event immediately - wait for OnSingleTapConfirmed
+            // to distinguish between single tap and double tap
+            return false;
         }
 
         // ScaleGestureDetector.IOnScaleGestureListener implementation
@@ -289,8 +280,18 @@ namespace MauiApp1.Platforms.Android.Handlers
         public bool OnSingleTapConfirmed(MotionEvent e)
         {
             // This is called for single taps that are confirmed not to be double taps
-            // We handle single taps in OnSingleTapUp, so return false here
-            return false;
+            if (e == null) return false;
+
+            var args = new GestureEventArgs
+            {
+                X = e.GetX(),
+                Y = e.GetY(),
+                FingerCount = e.PointerCount,
+                Type = GestureType.Tap
+            };
+
+            MainThread.BeginInvokeOnMainThread(() => _gestureView.OnTap(args));
+            return true;
         }
     }
 }
