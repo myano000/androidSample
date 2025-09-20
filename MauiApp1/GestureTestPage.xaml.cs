@@ -9,8 +9,15 @@ public partial class GestureTestPage : ContentPage
         InitializeComponent();
     }
 
-    private void AddLog(string message)
+    private async void AddLog(string message)
     {
+        // Ensure we're on the main thread
+        if (!MainThread.IsMainThread)
+        {
+            MainThread.BeginInvokeOnMainThread(() => AddLog(message));
+            return;
+        }
+
         _logText += $"{DateTime.Now:HH:mm:ss.fff} - {message}\n";
         statusLabel.Text = _logText;
 
@@ -20,6 +27,16 @@ public partial class GestureTestPage : ContentPage
         {
             _logText = string.Join('\n', lines.Skip(lines.Length - 20));
             statusLabel.Text = _logText;
+        }
+
+        // Auto-scroll to bottom
+        try
+        {
+            await logScrollView.ScrollToAsync(statusLabel, ScrollToPosition.End, false);
+        }
+        catch
+        {
+            // Ignore scroll errors if the view is not ready
         }
     }
 

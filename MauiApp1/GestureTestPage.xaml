@@ -28,7 +28,7 @@
                           ScaleEnd="OnScaleEnd" />
 
         <!-- Status display -->
-        <ScrollView Grid.Row="1" HeightRequest="200" BackgroundColor="Black">
+        <ScrollView x:Name="logScrollView" Grid.Row="1" HeightRequest="200" BackgroundColor="Black">
             <Label x:Name="statusLabel"
                    Text="Touch the blue area to test gestures:&#10;• Single tap&#10;• Double tap&#10;• Two-finger tap&#10;• Long press&#10;• Pan/drag&#10;• Fling/swipe&#10;• Pinch zoom"
                    TextColor="White"
