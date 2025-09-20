@@ -9,7 +9,7 @@
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnCounterClicked(object sender, EventArgs e)
         {
             count++;
 
@@ -19,6 +19,12 @@
                 CounterBtn.Text = $"Clicked {count} times";
 
             SemanticScreenReader.Announce(CounterBtn.Text);
+
+            // Navigate to gesture test page after 3 clicks
+            if (count >= 3)
+            {
+                await Shell.Current.GoToAsync("///GestureTestPage");
+            }
         }
     }
 

@@ -12,4 +12,9 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
+    <ShellContent
+        Title="Gesture Test"
+        ContentTemplate="{DataTemplate local:GestureTestPage}"
+        Route="GestureTestPage" />
+
 </Shell>

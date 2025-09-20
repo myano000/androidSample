@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiApp1"
+             x:Class="MauiApp1.GestureTestPage"
+             Title="Gesture Test">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Gesture area -->
+        <local:GestureView x:Name="gestureView"
+                          Grid.Row="0"
+                          BackgroundColor="LightBlue"
+                          IsGestureEnabled="True"
+                          IsScaleEnabled="True"
+                          Pan="OnPan"
+                          Tap="OnTap"
+                          LongPress="OnLongPress"
+                          Fling="OnFling"
+                          ScaleBegin="OnScaleBegin"
+                          Scale="OnScale"
+                          ScaleEnd="OnScaleEnd" />
+
+        <!-- Status display -->
+        <ScrollView Grid.Row="1" HeightRequest="200" BackgroundColor="Black">
+            <Label x:Name="statusLabel"
+                   Text="Touch the blue area to test gestures"
+                   TextColor="White"
+                   FontFamily="Monospace"
+                   FontSize="12"
+                   Padding="10" />
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

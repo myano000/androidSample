@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+#if ANDROID
+using MauiApp1.Platforms.Android.Handlers;
+#endif
 
 namespace MauiApp1
 {
@@ -13,6 +16,12 @@ namespace MauiApp1
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                })
+                .ConfigureMauiHandlers(handlers =>
+                {
+#if ANDROID
+                    handlers.AddHandler<GestureView, GestureViewHandler>();
+#endif
                 });
 
 #if DEBUG
