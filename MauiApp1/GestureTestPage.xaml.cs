@@ -92,16 +92,17 @@ public partial class GestureTestPage : ContentPage
 
     private void OnDragStarted(object sender, DraggableTouchEventArgs e)
     {
-        AddLog($"Drag Started: X={e.X:F1}, Y={e.Y:F1}");
+        AddLog($"Drag Start: ({e.X:F0}, {e.Y:F0})");
     }
 
     private void OnDragMoved(object sender, DraggableTouchEventArgs e)
     {
-        AddLog($"Drag Moved: X={e.X:F1}, Y={e.Y:F1}, ΔX={e.DeltaX:F1}, ΔY={e.DeltaY:F1}");
+        var logMessage = $"Drag: ({e.X:F0}, {e.Y:F0})";
+        AddLog(logMessage);
     }
 
     private void OnDragEnded(object sender, DraggableTouchEventArgs e)
     {
-        AddLog($"Drag Ended: X={e.X:F1}, Y={e.Y:F1}, Total ΔX={e.DeltaX:F1}, ΔY={e.DeltaY:F1}");
+        AddLog($"Drag End: ({e.X:F0}, {e.Y:F0})");
     }
 }

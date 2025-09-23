@@ -71,8 +71,6 @@ namespace MauiApp1
 
         public virtual void OnDragMoved(DraggableTouchEventArgs args)
         {
-            DragX = args.X;
-            DragY = args.Y;
             DragMoved?.Invoke(this, args);
             if (DragMovedCommand?.CanExecute(args) == true)
                 DragMovedCommand.Execute(args);

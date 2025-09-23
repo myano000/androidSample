@@ -55,10 +55,8 @@ namespace MauiApp1.Platforms.Android.Handlers
     {
         private readonly IDraggableView _draggableView;
         private bool _isDragging = false;
-        private float _lastTouchX = 0;
-        private float _lastTouchY = 0;
-        private float _startX = 0;
-        private float _startY = 0;
+        private float _lastRawX = 0;
+        private float _lastRawY = 0;
 
         public DraggableNativeView(Context context, IDraggableView draggableView) : base(context)
         {
@@ -68,12 +66,10 @@ namespace MauiApp1.Platforms.Android.Handlers
 
         public void Connect()
         {
-            // ドラッグ処理は OnTouchEvent で実装
         }
 
         public void Disconnect()
         {
-            // クリーンアップが必要な場合はここで実装
         }
 
         public override bool OnTouchEvent(MotionEvent? e)
@@ -84,46 +80,23 @@ namespace MauiApp1.Platforms.Android.Handlers
             {
                 case MotionEventActions.Down:
                     _isDragging = true;
-                    _lastTouchX = e.GetX();
-                    _lastTouchY = e.GetY();
-                    _startX = _lastTouchX;
-                    _startY = _lastTouchY;
-
-                    var startArgs = new DraggableTouchEventArgs
-                    {
-                        X = _lastTouchX,
-                        Y = _lastTouchY,
-                        DeltaX = 0,
-                        DeltaY = 0,
-                        State = DraggableTouchState.Started
-                    };
-                    MainThread.BeginInvokeOnMainThread(() => _draggableView.OnDragStarted(startArgs));
+                    _lastRawX = e.RawX;
+                    _lastRawY = e.RawY;
                     return true;
 
                 case MotionEventActions.Move:
                     if (_isDragging)
                     {
-                        float currentX = e.GetX();
-                        float currentY = e.GetY();
-                        float deltaX = currentX - _lastTouchX;
-                        float deltaY = currentY - _lastTouchY;
+                        float currentRawX = e.RawX;
+                        float currentRawY = e.RawY;
+                        float deltaX = currentRawX - _lastRawX;
+                        float deltaY = currentRawY - _lastRawY;
 
-                        // ビューの位置を更新
                         TranslationX += deltaX;
                         TranslationY += deltaY;
 
-                        var moveArgs = new DraggableTouchEventArgs
-                        {
-                            X = TranslationX,
-                            Y = TranslationY,
-                            DeltaX = deltaX,
-                            DeltaY = deltaY,
-                            State = DraggableTouchState.Moving
-                        };
-                        MainThread.BeginInvokeOnMainThread(() => _draggableView.OnDragMoved(moveArgs));
-
-                        _lastTouchX = currentX;
-                        _lastTouchY = currentY;
+                        _lastRawX = currentRawX;
+                        _lastRawY = currentRawY;
                         return true;
                     }
                     break;
@@ -133,15 +106,6 @@ namespace MauiApp1.Platforms.Android.Handlers
                     if (_isDragging)
                     {
                         _isDragging = false;
-                        var endArgs = new DraggableTouchEventArgs
-                        {
-                            X = TranslationX,
-                            Y = TranslationY,
-                            DeltaX = e.GetX() - _startX,
-                            DeltaY = e.GetY() - _startY,
-                            State = DraggableTouchState.Ended
-                        };
-                        MainThread.BeginInvokeOnMainThread(() => _draggableView.OnDragEnded(endArgs));
                         return true;
                     }
                     break;
@@ -152,7 +116,6 @@ namespace MauiApp1.Platforms.Android.Handlers
 
         public void UpdateDraggable(bool isDraggable)
         {
-            // ドラッグ可能フラグの更新
         }
 
         public void UpdatePosition(float x, float y)
