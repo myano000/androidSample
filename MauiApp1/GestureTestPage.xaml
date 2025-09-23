@@ -11,21 +11,33 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Gesture area -->
-        <local:GestureView x:Name="gestureView"
-                          Grid.Row="0"
-                          BackgroundColor="LightBlue"
-                          IsGestureEnabled="True"
-                          IsScaleEnabled="True"
-                          Pan="OnPan"
-                          Tap="OnTap"
-                          DoubleTap="OnDoubleTap"
-                          TwoFingerTap="OnTwoFingerTap"
-                          LongPress="OnLongPress"
-                          Fling="OnFling"
-                          ScaleBegin="OnScaleBegin"
-                          Scale="OnScale"
-                          ScaleEnd="OnScaleEnd" />
+        <!-- Gesture area with draggable view overlay -->
+        <Grid Grid.Row="0">
+            <local:GestureView x:Name="gestureView"
+                              BackgroundColor="LightBlue"
+                              IsGestureEnabled="True"
+                              IsScaleEnabled="True"
+                              Pan="OnPan"
+                              Tap="OnTap"
+                              DoubleTap="OnDoubleTap"
+                              TwoFingerTap="OnTwoFingerTap"
+                              LongPress="OnLongPress"
+                              Fling="OnFling"
+                              ScaleBegin="OnScaleBegin"
+                              Scale="OnScale"
+                              ScaleEnd="OnScaleEnd" />
+
+            <!-- Draggable view overlay -->
+            <local:DraggableView x:Name="draggableView"
+                                WidthRequest="100"
+                                HeightRequest="100"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Start"
+                                IsDraggable="True"
+                                DragStarted="OnDragStarted"
+                                DragMoved="OnDragMoved"
+                                DragEnded="OnDragEnded" />
+        </Grid>
 
         <!-- Status display -->
         <ScrollView x:Name="logScrollView" Grid.Row="1" HeightRequest="200" BackgroundColor="Black">

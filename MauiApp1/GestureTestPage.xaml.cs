@@ -89,4 +89,19 @@ public partial class GestureTestPage : ContentPage
     {
         AddLog($"Scale End: Factor={e.ScaleFactor:F2}, Focus=({e.FocusX:F1}, {e.FocusY:F1})");
     }
+
+    private void OnDragStarted(object sender, DraggableTouchEventArgs e)
+    {
+        AddLog($"Drag Started: X={e.X:F1}, Y={e.Y:F1}");
+    }
+
+    private void OnDragMoved(object sender, DraggableTouchEventArgs e)
+    {
+        AddLog($"Drag Moved: X={e.X:F1}, Y={e.Y:F1}, ΔX={e.DeltaX:F1}, ΔY={e.DeltaY:F1}");
+    }
+
+    private void OnDragEnded(object sender, DraggableTouchEventArgs e)
+    {
+        AddLog($"Drag Ended: X={e.X:F1}, Y={e.Y:F1}, Total ΔX={e.DeltaX:F1}, ΔY={e.DeltaY:F1}");
+    }
 }
