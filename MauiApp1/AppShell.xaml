@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MauiApp1"
     Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="True"
     Title="MauiApp1">
 
     <ShellContent
@@ -16,5 +17,10 @@
         Title="Gesture Test"
         ContentTemplate="{DataTemplate local:GestureTestPage}"
         Route="GestureTestPage" />
+
+    <ShellContent
+        Title="Detail"
+        ContentTemplate="{DataTemplate local:DetailPage}"
+        Route="DetailPage" />
 
 </Shell>

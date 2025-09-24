@@ -105,4 +105,9 @@ public partial class GestureTestPage : ContentPage
     {
         AddLog($"Drag End: ({e.X:F0}, {e.Y:F0})");
     }
+
+    private async void OnNavigateClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("///DetailPage");
+    }
 }

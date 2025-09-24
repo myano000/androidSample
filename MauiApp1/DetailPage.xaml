@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MauiApp1"
-             x:Class="MauiApp1.MainPage"
-             Shell.NavBarIsVisible="True">
+             x:Class="MauiApp1.DetailPage"
+             Title="詳細ページ">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -11,23 +11,24 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:GestureView x:Name="mainGestureView"
-                          Grid.Row="0"
-                          BackgroundColor="LightGreen"
-                          IsGestureEnabled="True"
-                          Tap="OnMainViewTap" />
+        <local:GLCustomView x:Name="glView"
+                           Grid.Row="0"
+                           BackgroundColor="#0080C0"
+                           GLContextCreated="OnGLContextCreated"
+                           GLRender="OnGLRender"
+                           ViewAttached="OnViewAttached"
+                           ViewDetached="OnViewDetached" />
 
         <VerticalStackLayout Grid.Row="1" Padding="20" Spacing="15">
             <Label
-                Text="タップでジェスチャーテストへ"
+                Text="OpenGL ES カスタムビュー"
                 Style="{StaticResource Headline}"
                 HorizontalOptions="Center" />
 
             <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
+                x:Name="BackButton"
+                Text="ジェスチャーテストに戻る"
+                Clicked="OnBackClicked"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </Grid>

@@ -9,6 +9,16 @@
             InitializeComponent();
         }
 
+        private void OnMainViewTap(object sender, GestureEventArgs e)
+        {
+            count++;
+            if (count >= 3)
+            {
+                Shell.Current.GoToAsync("///GestureTestPage");
+                count = 0;
+            }
+        }
+
         private async void OnCounterClicked(object sender, EventArgs e)
         {
             count++;
@@ -20,7 +30,6 @@
 
             SemanticScreenReader.Announce(CounterBtn.Text);
 
-            // Navigate to gesture test page after 3 clicks
             if (count >= 3)
             {
                 await Shell.Current.GoToAsync("///GestureTestPage");

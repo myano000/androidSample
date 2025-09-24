@@ -22,6 +22,7 @@ namespace MauiApp1
 #if ANDROID
                     handlers.AddHandler<GestureView, GestureViewHandler>();
                     handlers.AddHandler<DraggableView, DraggableViewHandler>();
+                    handlers.AddHandler<GLCustomView, GLCustomViewHandler>();
 #endif
                 });
 
