@@ -11,52 +11,30 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Gesture area with draggable view overlay -->
-        <Grid Grid.Row="0">
-            <local:GestureView x:Name="gestureView"
-                              BackgroundColor="LightBlue"
-                              IsGestureEnabled="True"
-                              IsScaleEnabled="True"
-                              Pan="OnPan"
-                              Tap="OnTap"
-                              DoubleTap="OnDoubleTap"
-                              TwoFingerTap="OnTwoFingerTap"
-                              LongPress="OnLongPress"
-                              Fling="OnFling"
-                              ScaleBegin="OnScaleBegin"
-                              Scale="OnScale"
-                              ScaleEnd="OnScaleEnd" />
+        <!-- Gesture area -->
+        <local:GestureView x:Name="gestureView"
+                          Grid.Row="0"
+                          BackgroundColor="LightBlue"
+                          IsGestureEnabled="True"
+                          IsScaleEnabled="True"
+                          Pan="OnPan"
+                          Tap="OnTap"
+                          DoubleTap="OnDoubleTap"
+                          TwoFingerTap="OnTwoFingerTap"
+                          LongPress="OnLongPress"
+                          Fling="OnFling"
+                          ScaleBegin="OnScaleBegin"
+                          Scale="OnScale"
+                          ScaleEnd="OnScaleEnd" />
 
-            <!-- Draggable view overlay -->
-            <local:DraggableView x:Name="draggableView"
-                                WidthRequest="100"
-                                HeightRequest="100"
-                                HorizontalOptions="Start"
-                                VerticalOptions="Start"
-                                IsDraggable="True"
-                                DragStarted="OnDragStarted"
-                                DragMoved="OnDragMoved"
-                                DragEnded="OnDragEnded" />
-        </Grid>
-
-        <!-- Status display -->
-        <VerticalStackLayout Grid.Row="1">
-            <Button
-                x:Name="NavigateButton"
-                Text="詳細ページへ移動"
-                Clicked="OnNavigateClicked"
-                Margin="10"
-                HorizontalOptions="Fill" />
-
-            <ScrollView x:Name="logScrollView" HeightRequest="200" BackgroundColor="Black">
-                <Label x:Name="statusLabel"
-                       Text="Touch the blue area to test gestures:&#10;• Single tap&#10;• Double tap&#10;• Two-finger tap&#10;• Long press&#10;• Pan/drag&#10;• Fling/swipe&#10;• Pinch zoom"
-                       TextColor="White"
-                       FontFamily="Monospace"
-                       FontSize="12"
-                       Padding="10" />
-            </ScrollView>
-        </VerticalStackLayout>
+        <!-- Navigation button -->
+        <Button
+            x:Name="NavigateButton"
+            Grid.Row="1"
+            Text="詳細ページへ移動"
+            Clicked="OnNavigateClicked"
+            Margin="10"
+            HorizontalOptions="Fill" />
     </Grid>
 
 </ContentPage>
