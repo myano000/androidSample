@@ -7,10 +7,10 @@ namespace MauiApp1.Platforms.Android.Handlers
 {
     public class GestureHandler : Java.Lang.Object, GestureDetector.IOnGestureListener
     {
-        private readonly IGestureView _gestureView;
+        private readonly GestureView _gestureView;
         private const string TAG = "GestureHandler";
 
-        public GestureHandler(IGestureView gestureView)
+        public GestureHandler(GestureView gestureView)
         {
             _gestureView = gestureView;
         }

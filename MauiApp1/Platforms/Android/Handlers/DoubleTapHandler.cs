@@ -7,10 +7,10 @@ namespace MauiApp1.Platforms.Android.Handlers
 {
     public class DoubleTapHandler : Java.Lang.Object, GestureDetector.IOnDoubleTapListener
     {
-        private readonly IGestureView _gestureView;
+        private readonly GestureView _gestureView;
         private const string TAG = "DoubleTapHandler";
 
-        public DoubleTapHandler(IGestureView gestureView)
+        public DoubleTapHandler(GestureView gestureView)
         {
             _gestureView = gestureView;
         }

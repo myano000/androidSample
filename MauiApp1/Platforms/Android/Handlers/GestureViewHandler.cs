@@ -2,9 +2,9 @@ using Microsoft.Maui.Handlers;
 
 namespace MauiApp1.Platforms.Android.Handlers
 {
-    public class GestureViewHandler : ViewHandler<IGestureView, GestureNativeView>
+    public class GestureViewHandler : ViewHandler<GestureView, GestureNativeView>
     {
-        public static IPropertyMapper<IGestureView, GestureViewHandler> Mapper = new PropertyMapper<IGestureView, GestureViewHandler>(ViewMapper)
+        public static IPropertyMapper<GestureView, GestureViewHandler> Mapper = new PropertyMapper<GestureView, GestureViewHandler>(ViewMapper)
         {
         };
 

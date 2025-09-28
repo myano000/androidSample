@@ -8,7 +8,7 @@ namespace MauiApp1.Platforms.Android.Handlers
 {
     public class GestureNativeView : AView
     {
-        private readonly IGestureView _gestureView;
+        private readonly GestureView _gestureView;
         private GestureDetector? _gestureDetector;
         private ScaleGestureDetector? _scaleGestureDetector;
         private DateTime _lastTwoFingerTapTime = DateTime.MinValue;
@@ -18,7 +18,7 @@ namespace MauiApp1.Platforms.Android.Handlers
         private readonly DoubleTapHandler _doubleTapHandler;
         private readonly ScaleHandler _scaleHandler;
 
-        public GestureNativeView(Context context, IGestureView gestureView) : base(context)
+        public GestureNativeView(Context context, GestureView gestureView) : base(context)
         {
             _gestureView = gestureView;
 

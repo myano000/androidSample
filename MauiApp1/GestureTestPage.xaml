@@ -14,27 +14,8 @@
         <!-- Gesture area -->
         <local:GestureView x:Name="gestureView"
                           Grid.Row="0"
-                          BackgroundColor="LightBlue"
-                          IsGestureEnabled="True"
-                          IsScaleEnabled="True"
-                          Pan="OnPan"
-                          Tap="OnTap"
-                          DoubleTap="OnDoubleTap"
-                          TwoFingerTap="OnTwoFingerTap"
-                          LongPress="OnLongPress"
-                          Fling="OnFling"
-                          ScaleBegin="OnScaleBegin"
-                          Scale="OnScale"
-                          ScaleEnd="OnScaleEnd" />
+                          BackgroundColor="LightBlue" />
 
-        <!-- Navigation button -->
-        <Button
-            x:Name="NavigateButton"
-            Grid.Row="1"
-            Text="詳細ページへ移動"
-            Clicked="OnNavigateClicked"
-            Margin="10"
-            HorizontalOptions="Fill" />
     </Grid>
 
 </ContentPage>

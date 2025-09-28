@@ -7,11 +7,11 @@ namespace MauiApp1.Platforms.Android.Handlers
 {
     public class ScaleHandler : Java.Lang.Object, ScaleGestureDetector.IOnScaleGestureListener
     {
-        private readonly IGestureView _gestureView;
+        private readonly GestureView _gestureView;
         private const string TAG = "ScaleHandler";
         private float _previousScaleFactor = 1.0f;
 
-        public ScaleHandler(IGestureView gestureView)
+        public ScaleHandler(GestureView gestureView)
         {
             _gestureView = gestureView;
         }

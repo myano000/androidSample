@@ -9,15 +9,7 @@
             InitializeComponent();
         }
 
-        private void OnMainViewTap(object sender, GestureEventArgs e)
-        {
-            count++;
-            if (count >= 3)
-            {
-                Shell.Current.GoToAsync("///GestureTestPage");
-                count = 0;
-            }
-        }
+   
 
         private async void OnCounterClicked(object sender, EventArgs e)
         {

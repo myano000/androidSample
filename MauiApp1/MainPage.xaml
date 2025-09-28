@@ -13,9 +13,7 @@
 
         <local:GestureView x:Name="mainGestureView"
                           Grid.Row="0"
-                          BackgroundColor="LightGreen"
-                          IsGestureEnabled="True"
-                          Tap="OnMainViewTap" />
+                          BackgroundColor="LightGreen"/>
 
         <VerticalStackLayout Grid.Row="1" Padding="20" Spacing="15">
             <Label
